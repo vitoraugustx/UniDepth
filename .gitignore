@@ -13,3 +13,15 @@ ___*.py
 **/build/
 **/dist/
 **/*.egg-info/
+
+# venv
+.venv/
+
+# vscode
+.vscode/
+
+# dataset
+assets/dataset/
+
+# checkpoints
+*.safetensors

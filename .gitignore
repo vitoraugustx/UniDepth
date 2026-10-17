@@ -21,7 +21,8 @@ ___*.py
 .vscode/
 
 # dataset
-assets/dataset/
+assets/datasets/
+assets/output/
 
 # checkpoints
 *.safetensors

@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 import numpy as np
@@ -8,13 +7,12 @@ from tqdm import tqdm
 
 from unidepth.models import UniDepthV2
 
-
-INPUT_DIR = Path("assets/test")
-OUTPUT_DIR = Path("assets/output")
+INPUT_DIR = Path("assets/datasets/Cityscapes")
+OUTPUT_DIR = Path("assets/output/datasets/Cityscapes/UniDepthV2_inferences")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 MODEL_DIR = Path("models/unidepth-v2-vitl14")
 
-USE_LOCAL_MODEL = True
+USE_LOCAL_MODEL = False
 
 if USE_LOCAL_MODEL:
     model = UniDepthV2.from_pretrained(
@@ -36,9 +34,9 @@ image_paths = [
 ]
 
 for image_path in tqdm(image_paths, desc="Generating depth maps", unit="image"):
-    rgb = torch.from_numpy(
-        np.array(Image.open(image_path).convert("RGB"))
-    ).permute(2, 0, 1)
+    rgb = torch.from_numpy(np.array(Image.open(image_path).convert("RGB"))).permute(
+        2, 0, 1
+    )
 
     predictions = model.infer(rgb)
 
@@ -54,6 +52,5 @@ for image_path in tqdm(image_paths, desc="Generating depth maps", unit="image"):
     )
 
     tqdm.write(
-        f"Saved: {output_path} | depth: {depth.shape} | "
-        f"intrinsics: {intrinsics.shape}"
+        f"Saved: {output_path} | depth: {depth.shape} | intrinsics: {intrinsics.shape}"
     )

@@ -302,6 +302,11 @@ class UniDepthV2(
             )
             camera = camera.resize(resize_factor)
 
+        # print(f"Original input: {H}x{W}")
+        # print(f"Model input: {rgb.shape[-2]}x{rgb.shape[-1]}")
+        # print(f"Pixels: {rgb.shape[-2] * rgb.shape[-1]}")
+        # print(f"pixels_bounds: {pixels_bounds}")
+
         # run model
         _, model_outputs = self.encode_decode(
             inputs={"image": rgb, "camera": camera}, image_metas=[]
